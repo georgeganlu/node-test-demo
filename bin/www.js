@@ -21,22 +21,23 @@ var port = normalizePort(process.env.PORT || '3000');
  */
 
 var server = http.createServer(app.callback());
+
+
 const io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
+// io.on('connection', (socket) => {
+//     socket.on('urgentNotice', (msg) => {
+//       console.log('message: 88888888888888888888888888888888888 '+msg);
+//       io.emit('urgentNotice', msg);
+//     });
 
-    socket.on('urgentNotice', (msg) => {
-      console.log('message: 88888888888888888888888888888888888 '+msg);
-      io.emit('urgentNotice', msg);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('user disconnected   3333 ');
-    });
-    // io.emit('urgentNotice',{
-    //     data: 'asdfasdfasdfasdfasdfasdfasdfasdfasdf'
-    // });
-});
+//     socket.on('disconnect', () => {
+//       console.log('user disconnected   3333 ');
+//     });
+//     // io.emit('urgentNotice',{
+//     //     data: 'asdfasdfasdfasdfasdfasdfasdfasdfasdf'
+//     // });
+// });
 
 /**
  * Listen on provided port, on all network interfaces.

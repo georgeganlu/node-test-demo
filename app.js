@@ -14,7 +14,7 @@ const path = require("path");
 // error handler
 onerror(app);
 
-app.use(cors());
+// app.use(cors());
 
 // middlewares
 
@@ -28,9 +28,9 @@ app.use(koaBody({
         maxFileSize: 2000 * 1024 * 1024, // 设置上传文件大小最大限制，默认2M
         uploadDir: 'disk',
     },
-    jsonLimit:"50mb",
-    textLimit:"50mb",
-    formLimit:"50mb"
+    jsonLimit: "50mb",
+    textLimit: "50mb",
+    formLimit: "50mb"
 }))
 
 
@@ -45,6 +45,19 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
+    // 处理options请求。
+    // ctx.set('Access-Control-Allow-Origin', '*');
+    // ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    // ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    if (ctx.request.method === 'OPTIONS') {
+        ctx.set("Access-Control-Allow-Origin", 'http://localhost:9000');
+        //指定服务器允许进行跨域资源访问的请求方法列表，一般用在响应预检请求上
+        ctx.set("Access-Control-Allow-Methods", "OPTIONS,POST,GET,HEAD,DELETE,PUT");
+        // ctx.set('Access-Control-Allow-Headers', 'Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With');
+        //必需。指定服务器允许进行跨域资源访问的请求头列表，一般用在响应预检请求上
+        ctx.body = 200; 
+    }
+
     const start = new Date()
     await next()
     const ms = new Date() - start
