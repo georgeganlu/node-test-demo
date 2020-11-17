@@ -46,13 +46,14 @@ app.use(views(__dirname + '/views', {
 // logger
 app.use(async (ctx, next) => {
     // 处理options请求。
-    // ctx.set('Access-Control-Allow-Origin', '*');
-    // ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    // ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    ctx.set('Access-Control-Allow-Origin', '*');
+    ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, x-header');
+    ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS, HEAD');
+    ctx.set('Access-Control-Max-Age', '1800');
     if (ctx.request.method === 'OPTIONS') {
-        ctx.set("Access-Control-Allow-Origin", 'http://localhost:9000');
+        // ctx.set("Access-Control-Allow-Origin", '*');
         //指定服务器允许进行跨域资源访问的请求方法列表，一般用在响应预检请求上
-        ctx.set("Access-Control-Allow-Methods", "OPTIONS,POST,GET,HEAD,DELETE,PUT");
+        // ctx.set("Access-Control-Allow-Methods", "OPTIONS,POST,GET,HEAD,DELETE,PUT");
         // ctx.set('Access-Control-Allow-Headers', 'Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With');
         //必需。指定服务器允许进行跨域资源访问的请求头列表，一般用在响应预检请求上
         ctx.body = 200; 

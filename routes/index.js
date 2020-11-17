@@ -91,7 +91,7 @@ router.get("/test1/:key1/test2/:key2", async (ctx, next) => {
 router.get('/simple', async (ctx, next) => {
     // console.log(ctx.params);
     ctx.set('Access-Control-Allow-Origin', '*');
-    // ctx.set('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, HEAD, DELETE, PUT');
+    ctx.set('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, HEAD, DELETE, PUT');
     // ctx.set("Access-Control-Allow-Headers", Object.keys(ctx.request.header).join(','));
     ctx.body = {
         status: "200",
@@ -113,7 +113,7 @@ router.post('/simple', async (ctx, next) => {
 
 // 现在这里需要处理options请求的情况。
 router.put('/simple', async (ctx, next) => {
-    // ctx.set('Access-Control-Allow-Origin', '*');
+    ctx.set('Access-Control-Allow-Origin', '*');
     // ctx.set('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, HEAD, DELETE, PUT');
     // ctx.set("Access-Control-Allow-Headers", Object.keys(ctx.request.header).join(','));
     ctx.body = {
@@ -131,5 +131,12 @@ router.get('/complex', async (ctx, next) => {
     };
 });
 
+router.post('/complex', async (ctx, next) => {
+    console.log(ctx.request.body, 'ctx.request.body');
+    ctx.body = {
+        status: "200",
+        message: '测试成功'
+    };
+});
 
 module.exports = router;
